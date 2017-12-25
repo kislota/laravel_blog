@@ -12,7 +12,7 @@ class FiltersController extends Controller {
     }
 
     public function index() {
-        //Получаем все посты
+        //Получаем все слова
         $filters = Filter::all();
         return view('filters.index', compact('filters'));
     }
@@ -32,7 +32,7 @@ class FiltersController extends Controller {
     }
 
     public function show(Filter $filter) {
-        //Отображаем пост и передаём ему все что нашли в базе по этому посту
+        //Отображаем слово
         return view('filters.show', compact('filter'));
     }
 
