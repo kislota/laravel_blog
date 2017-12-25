@@ -15,6 +15,11 @@
 //    return view('welcome');
 //});
 
-Route::resource('/post','PostsController');
+Route::resource('/posts','PostsController');
+Route::resource('/filters','FiltersController');
+Route::resource('/likes','LikesController');
+Route::get('/', 'HomeController@index')->name('home');
+Auth::routes();
 
-Route::get('/', 'PostsController@redirect');
+//Route::get('/', 'PostsController@redirect');
+

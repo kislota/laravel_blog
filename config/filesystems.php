@@ -41,6 +41,8 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
+        //Создать папку для картинок /storage/app/public/images
+        //artisan storage:link
         'images' => [
             'driver' => 'local',
             'root' => storage_path('app/public/images'),
