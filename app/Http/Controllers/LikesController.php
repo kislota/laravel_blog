@@ -70,7 +70,7 @@ class LikesController extends Controller {
 
     //Обновление поста
     protected function postUpdate($postid, $userid = '') {
-        if ($userid) {
+        if ($postid) {
             $post = Post::where('id', $postid)->update([
                 'user_id_like' => $userid,
             ]);
