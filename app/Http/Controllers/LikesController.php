@@ -45,7 +45,6 @@ class LikesController extends Controller {
          */
         //Получаем следующего пользователя который лайнул этот пост
         //$this->nextLike($like->post_id);
-        
         //Назад
         return back();
     }
@@ -61,6 +60,7 @@ class LikesController extends Controller {
      * Передаём право редактирования следующему кто лайкнул 
      * после первого если тот удалил свой лайк
      */
+
     protected function nextLike($postid) {
         //Получаем следующего пользователя если такой есть
         $userid = Like::where('post_id', $postid)->value('user_id');
@@ -70,11 +70,10 @@ class LikesController extends Controller {
 
     //Обновление поста
     protected function postUpdate($postid, $userid = '') {
-        if ($postid) {
-            $post = Post::where('id', $postid)->update([
-                'user_id_like' => $userid,
-            ]);
-        }
+        //Обновляем запись поста
+        $post = Post::where('id', $postid)->update([
+            'user_id_like' => $userid,
+        ]);
         return true;
     }
 
