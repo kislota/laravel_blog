@@ -102,6 +102,8 @@ class PostsController extends Controller {
     public function destroy(Post $post) {
         //Из полученіх данных о посте берём имя картинки и удаляем сначала её
         Storage::disk('images')->delete($post->img);
+        //Удаляем лайки этого поста
+        Like::where('post_id', $post->id)->delete();
         //И удаляем затем запись из базы с данным постом
         $post->delete();
         //Редирект на главную
