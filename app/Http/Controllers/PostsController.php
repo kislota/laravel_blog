@@ -16,10 +16,6 @@ class PostsController extends Controller {
         $this->middleware('auth')->except(['index', 'show']);
     }
 
-    protected function redirect() {
-        return redirect('/posts');
-    }
-
     public function index() {
         //Получаем все посты
         $posts = Post::all();
@@ -33,30 +29,17 @@ class PostsController extends Controller {
     }
     
     //Получаем объек с данными которые нам пришли
-    public function store(Request $request) {
-        //Проверяем пришла ли картинка
-        if ($request->file('img')) {
-            //Если пришла то сохраняем её на диск /storage/app/public/images
-            //и генирируем рандомное имя и сохраняем его в $imgUrl
-            $imgUrl = $request->file('img')->store(
-                    '', 'images'
-            );
-        } else {
-            //Если ничего не пришло нам то сохраняем пустое место
-            $imgUrl = '';
-        }
-        //Фильтруем введёный пользователем текст
-        $text = $this->getText($request->text);
+    public function store(Request $request, Post $post) {
         //Сохраняем в базу данные которые нам пришли
         Post::create([
-            'head' => $request->head, //Заголовок
-            'text' => $text, //Текст поста
+            'head' => $post->getText($request->head), //Заголовок
+            'text' => $post->getText($request->text), //Текст поста
             'author' => auth()->id(), //ID Автора
-            'img' => $imgUrl, //Название картинки
+            'img' => $post->saveImg($request->file('img')), //Название картинки
             'user_id_like' => '',
         ]);
         //Редирект на главную
-        return $this->redirect();
+        return $post->redirect();
     }
 
     //По ID поста выбираем нужный пост
@@ -73,29 +56,16 @@ class PostsController extends Controller {
 
     //Получаем то что нам отправили и ID поста который надо изменить
     public function update(Request $request, Post $post) {
-        //Проверяем поменялась ли картинка на новую
-        if ($request->file('img_new')) {
-            //Если поменялась то сохраняем её на диск и записываем новое имя
-            $imgUrl = $request->file('img_new')->store(
-                    '', 'images'
-            );
-            //А старую удаляем за ненадобностью и что бы не засорять диск
-            Storage::disk('images')->delete($post->img);
-        } else {
-            //Если картинки новой не было перезаписываем старое имя картинки
-            $imgUrl = $request->img;
-        }
-        //Фильтруем введёный пользователем текст
-        $text = $this->getText($request->text);
+
         //Обновляем пост
         $post->update([
-            'head' => $request->head, //Заголовок
-            'text' => $text, //Текст
+            'head' => $post->getText($request->head), //Заголовок
+            'text' => $post->getText($request->text), //Текст
             'author' => $request->author, //Автор
-            'img' => $imgUrl, //Картинка новая или старая
+            'img' => $post->saveImg($request->file('img_new'), $request->file('img')), //Картинка новая или старая
         ]);
         //Редирект на главную
-        return $this->redirect();
+        return $post->redirect();
     }
 
     //Удаляем пост
@@ -107,32 +77,7 @@ class PostsController extends Controller {
         //И удаляем затем запись из базы с данным постом
         $post->delete();
         //Редирект на главную
-        return $this->redirect();
-    }
-
-    //Получаем текст поста
-    protected function getText($text) {
-        //Получаем слова которые запрещены
-        $filters = Filter::all();
-        //Перебираем слова ищем есть ли запрещённые
-        foreach ($filters as $filter) {
-            //Выполняем замены если нашлись такие слова
-            $text = preg_replace('/' . $filter->text . '/usi', '$1' . $this->getReplace($filter->text) . '$2', $text);
-        }
-        //Отдаём обработаный текст
-        return $text;
-    }
-    
-    //Передаём запрещённое слово для получения слова для замены если такое найдём
-    protected function getReplace($str) {
-        //получаем первый символ
-        $strOne = mb_substr($str, 0,1);
-        //Получаем последний символ
-        $strLast = mb_substr($str, mb_strlen($str)-1);
-        //Меняем остальные символы на звёздочки
-        $str = str_repeat('*', mb_strlen($str) - 2);
-        //Соединяем всё до кучки
-        return $strOne . $str . $strLast;
+        return $post->redirect();
     }
 
 }
