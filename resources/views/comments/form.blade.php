@@ -8,7 +8,7 @@
             <label for="text">Комментарий</label>
             <textarea class="form-control" id="comments" name="text"></textarea>
         </div>
-        <button type="submit" class="btn btn-danger">Отправить</button>
+        <button type="submit" class="btn btn-success">Отправить</button>
     </form>
 </article>
 @endif
