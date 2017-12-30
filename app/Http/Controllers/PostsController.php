@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
-use App\Filter;
 use App\Like;
 use Illuminate\Support\Facades\Storage;
 
@@ -18,7 +17,7 @@ class PostsController extends Controller {
 
     public function index() {
         //Получаем все посты
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'DESC')->get();
         //Передаём в вид объект постов
         return view('posts.index', compact('posts'));
     }

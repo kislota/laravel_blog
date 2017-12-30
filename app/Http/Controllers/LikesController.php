@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Like;
-use App\Post;
-use App\User;
 
 class LikesController extends Controller {
 

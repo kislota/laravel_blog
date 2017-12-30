@@ -4,7 +4,6 @@ namespace App;
 
 use App\Model;
 use App\Post;
-use App\User;
 
 class Like extends Model {
 
