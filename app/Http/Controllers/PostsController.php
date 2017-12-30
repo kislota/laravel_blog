@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Like;
+use App\Comment;
 use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller {
@@ -26,7 +27,7 @@ class PostsController extends Controller {
         //Выводим шаблон для новой записи
         return view('posts.create');
     }
-    
+
     //Получаем объек с данными которые нам пришли
     public function store(Request $request, Post $post) {
         //Сохраняем в базу данные которые нам пришли
@@ -42,7 +43,9 @@ class PostsController extends Controller {
     }
 
     //По ID поста выбираем нужный пост
-    public function show(Post $post) {
+    public function show(Comment $comments, Post $post) {
+        $post->comments = $post->getComments($post);
+//        dd($post->comments);
         //Отображаем пост и передаём ему все что нашли в базе по этому посту
         return view('posts.show', compact('post'));
     }
@@ -73,6 +76,8 @@ class PostsController extends Controller {
         Storage::disk('images')->delete($post->img);
         //Удаляем лайки этого поста
         Like::where('post_id', $post->id)->delete();
+        //Удаляем комменарии
+        Comment::where('post_id', $post->id)->delete();
         //И удаляем затем запись из базы с данным постом
         $post->delete();
         //Редирект на главную

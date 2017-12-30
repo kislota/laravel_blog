@@ -5,6 +5,7 @@ namespace App;
 use App\Model;
 use App\Like;
 use App\Filter;
+use App\Comment;
 use Illuminate\Support\Facades\Storage;
 
 class Post extends Model {
@@ -70,9 +71,13 @@ class Post extends Model {
         //Получаем последний символ
         $strLast = mb_substr($str, mb_strlen($str) - 1);
         //Меняем остальные символы на звёздочки
-        $str = str_repeat('*', mb_strlen($str) - 2);
+        $str_new = str_repeat('*', mb_strlen($str) - 2);
         //Соединяем всё до кучки
-        return $strOne . $str . $strLast;
+        return $strOne . $str_new . $strLast;
+    }
+
+    public function getComments(Post $post) {
+        return Comment::where('post_id', $post->id)->orderBy('created_at', 'DESC')->get();;
     }
 
 }

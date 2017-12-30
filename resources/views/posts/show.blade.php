@@ -23,8 +23,20 @@
                             <button type="submit" class="btn btn-danger">Удалить</button>
                             @endif
                         </form>
+                        <hr>
+                        @foreach ($post->comments as $comment)
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Автор комментария: {{ $post->getUsername($comment->user_id)}}</h3>
+                            </div>
+                            <div class="panel-body">
+                                {{ $comment->text }}
+                            </div>
+                        </div>
+                        @endforeach
                     </article>
                     <hr>
+                    @include('comments.form')
                 </div>
             </div>
         </div>

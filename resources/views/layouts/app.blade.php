@@ -43,6 +43,7 @@
                             @if (auth()->check())
                             <li><a href="/posts/create">Создать запись</a></li>
                             <li><a href="/filters">Фильтр слов</a></li>
+                            <li><a href="/admin">Админка</a></li>
                             @endif
                         </ul>
 
