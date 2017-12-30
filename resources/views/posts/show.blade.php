@@ -16,11 +16,13 @@
                         <form method="post" action="/posts/{{ $post->id}}">
                             {{ csrf_field()}}
                             {{ method_field('DELETE') }}
+                            @if (auth()->check())
                             @if($post->author == auth()->id() || $post->user_id_like == auth()->id())
                             <a href="/posts/{{ $post->id}}/edit" class="btn btn-success" role="button">Изменить</a>
                             @endif
                             @if($post->author == auth()->id())
                             <button type="submit" class="btn btn-danger">Удалить</button>
+                            @endif
                             @endif
                         </form>
                         <hr>

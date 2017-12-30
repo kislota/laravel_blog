@@ -18,7 +18,7 @@
 Route::resource('/posts','PostsController');
 Route::resource('/filters','FiltersController');
 Route::resource('/likes','LikesController');
-Route::post('/comments','CommentsController@store');
+Route::resource('/comments','CommentsController');
 Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::resource('/','AdminController');
 });

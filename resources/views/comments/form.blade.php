@@ -1,3 +1,4 @@
+@if (auth()->check())
 <article>
     <form method="post" action="/comments">
         {{ csrf_field()}}
@@ -10,3 +11,4 @@
         <button type="submit" class="btn btn-danger">Отправить</button>
     </form>
 </article>
+@endif
