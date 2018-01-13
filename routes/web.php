@@ -18,6 +18,11 @@
 Route::resource('/posts','PostsController');
 Route::resource('/filters','FiltersController');
 Route::resource('/likes','LikesController');
+Route::resource('/comments','CommentsController');
+Route::prefix('admin')->namespace('Admin')->group(function () {
+    Route::resource('/','AdminController');
+});
+
 Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 

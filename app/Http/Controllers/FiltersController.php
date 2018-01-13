@@ -22,12 +22,11 @@ class FiltersController extends Controller {
     }
 
     public function store(Request $request) {
-        if ($request->text) {
-            //Добавляем новое слово для фильтрации
-            Filter::create([
-                'text' => $request->text //Слово
-            ]);
-        }
+        $this->validate($request, [
+            'text' => 'required',
+        ]);
+        //Добавляем новое слово для фильтрации
+        Filter::create($request->all());
         return $this->redirect();
     }
 
@@ -42,13 +41,8 @@ class FiltersController extends Controller {
     }
 
     public function update(Request $request, Filter $filter) {
-        //Если есть что менять
-        if ($request->text) {
-            //Меняем старое на новое слово
-            $filter->update([
-                'text' => $request->text, //Слово
-            ]);
-        }
+        //Меняем старое на новое слово
+        $filter->update($request->all());
         return $this->redirect();
     }
 
