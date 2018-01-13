@@ -105,7 +105,7 @@
                 @yield('content')
             </div>
             <div class="col-md-4">
-                Sitebar
+                @yield('sidebar')
             </div>
         </div>
     </div>
