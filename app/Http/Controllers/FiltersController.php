@@ -22,6 +22,9 @@ class FiltersController extends Controller {
     }
 
     public function store(Request $request) {
+        $this->validate($request, [
+            'text' => 'required',
+        ]);
         //Добавляем новое слово для фильтрации
         Filter::create($request->all());
         return $this->redirect();

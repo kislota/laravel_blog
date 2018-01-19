@@ -35,6 +35,11 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'text' => 'required'
+            
+        ]);
+        //,['message' => 'Обязательное поле не заполнено']
         Comment::create([
             'post_id' => $request->post_id, //ID поста
             'user_id' => auth()->id(), //ID Автора комментария

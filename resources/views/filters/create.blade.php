@@ -13,7 +13,10 @@
                             <label for="filters">Введите слово</label>
                             <input type="text" class="form-control" id="filters" name="text">
                         </div>
-                        <button type="submit" class="btn btn-default">Отправить</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Отправить</button>
+                        </div>
+                        @include('components.errors')
                     </form>
                 </div>
             </div>

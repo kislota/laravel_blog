@@ -16,7 +16,7 @@ class Post extends Model {
 
 //Сохранение и изменение картинки
     public function saveImg($file, $fileOld = '') {
-        if ($file != $fileOld) {
+        if ($file) {
             //Если пришла то сохраняем её на диск /storage/app/public/images
             //и генирируем рандомное имя и сохраняем его в $imgUrl
             $imgUrl = $file->store('', 'images');
@@ -25,7 +25,7 @@ class Post extends Model {
             }
         } else {
             //Если ничего не пришло нам то сохраняем пустое место
-            $imgUrl = $file;
+            $imgUrl = $fileOld;
         }
         return $imgUrl;
     }
@@ -77,7 +77,12 @@ class Post extends Model {
     }
 
     public function getComments(Post $post) {
-        return Comment::where('post_id', $post->id)->orderBy('created_at', 'DESC')->get();;
+        return Comment::where('post_id', $post->id)->orderBy('created_at', 'DESC')->get();
+        ;
+    }
+
+    public function scopeFilter($query, $filters) {
+        return $filters->apply($query);
     }
 
 }

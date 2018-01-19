@@ -7,6 +7,7 @@ use App\Post;
 use App\Like;
 use App\Comment;
 use Illuminate\Support\Facades\Storage;
+use App\Filters\PostFilters;
 
 class PostsController extends Controller {
 
@@ -16,10 +17,8 @@ class PostsController extends Controller {
         $this->middleware('auth')->except(['index', 'show']);
     }
 
-    public function index() {
-        //Получаем все посты
-        $posts = Post::orderBy('created_at', 'DESC')->get();
-        //Передаём в вид объект постов
+    public function index(PostFilters $filters) {
+        $posts = Post::filter($filters)->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -30,6 +29,11 @@ class PostsController extends Controller {
 
     //Получаем объек с данными которые нам пришли
     public function store(Request $request, Post $post) {
+        $this->validate($request, [
+            'head' => 'required',
+            'text' => 'required',
+            'img' => 'required|image',
+        ]);
         //Сохраняем в базу данные которые нам пришли
         Post::create([
             'head' => $post->getText($request->head), //Заголовок
@@ -58,13 +62,16 @@ class PostsController extends Controller {
 
     //Получаем то что нам отправили и ID поста который надо изменить
     public function update(Request $request, Post $post) {
-
+        $this->validate($request, [
+            'head' => 'required',
+            'text' => 'required',
+        ]);
         //Обновляем пост
         $post->update([
             'head' => $post->getText($request->head), //Заголовок
             'text' => $post->getText($request->text), //Текст
             'author' => $request->author, //Автор
-            'img' => $post->saveImg($request->file('img_new'), $request->file('img')), //Картинка новая или старая
+            'img' => $post->saveImg($request->file('img_new'), $request->img), //Картинка новая или старая
         ]);
         //Редирект на главную
         return $post->redirect();

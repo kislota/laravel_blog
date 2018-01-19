@@ -39,11 +39,30 @@
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         <!-- Left Side Of Navbar -->
                         <ul class="nav navbar-nav">
-                            <li><a href="/posts">Все записи</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Посты<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/posts">Все записи</a></li>
+                                    @if (auth()->check())
+                                    <li><a href="/posts?name={{auth()->user()->name}}">Мои записи</a></li>
+                                    <li><a href="/posts/create">Создать запись</a></li>
+                                    @endif
+                                </ul>
+                            </li>
                             @if (auth()->check())
-                            <li><a href="/posts/create">Создать запись</a></li>
-                            <li><a href="/filters">Фильтр слов</a></li>
-                            <li><a href="/admin">Админка</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Настройки<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    
+                                    <li><a href="/filters">Фильтр слов</a></li>
+                                    <li><a href="/admin">Админка</a></li>
+                                    
+                                </ul>
+                            </li>
                             @endif
                         </ul>
 
@@ -51,8 +70,8 @@
                         <ul class="nav navbar-nav navbar-right">
                             <!-- Authentication Links -->
                             @guest
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ route('login') }}">Вход</a></li>
+                            <li><a href="{{ route('register') }}">Регистрация</a></li>
                             @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
@@ -92,11 +111,11 @@
 
     <script>
 
-                                       $(document).ready(function () {
+                                               $(document).ready(function () {
 
-                                           $('#text').summernote();
+                                                   $('#text').summernote();
 
-                                       });
+                                               });
 
     </script>
 </html>

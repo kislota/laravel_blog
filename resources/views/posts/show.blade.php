@@ -10,9 +10,9 @@
                     <article>
                         <img style="height: 150px;" src="{{$url = Storage::url('images/'.$post->img)}}" alt="{{$post->img}}">
                         <div class="body">{!! $post->text !!}</div>
-                        <div class="center-block">Дата создания: {{ $post->created_at}}</div>
-                        <div class="center-block">Дата изменения: {{ $post->updated_at}}</div>
-                        <div class="center-block">Автор: {{ $post->getUsername($post->author)}}</div>
+                        <div class="center-block">Добавленно: {{ $post->created_at->diffForHumans()}}</div>
+                        <div class="center-block">Измененно: {{ $post->updated_at->diffForHumans()}}</div>
+                        <div class="center-block">Добавил: {{ $post->getUsername($post->author)}}</div>
                         <form method="post" action="/posts/{{ $post->id}}">
                             {{ csrf_field()}}
                             {{ method_field('DELETE') }}
