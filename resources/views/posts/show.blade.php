@@ -5,13 +5,12 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ $post->head}}</div>
                     <div class="panel-body">
                         <article>
-                            <img style="height: 150px;" src="{{$url = Storage::url('images/'.$post->img)}}"
-                                 alt="{{$post->img}}">
+                            <img style="height: 150px;" src="{{$url = Storage::url('images/'.$post->img)}}" alt="{{$post->img}}">
                             <div class="body">{!! $post->text !!}</div>
                             <div class="center-block">Добавленно: {{ $post->created_at->diffForHumans()}}</div>
                             <div class="center-block">Измененно: {{ $post->updated_at->diffForHumans()}}</div>
@@ -32,8 +31,7 @@
                             @foreach ($post->comments as $comment)
                                 <div class="panel panel-primary">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">Автор
-                                            комментария: {{ $post->getUsername($comment->user_id)}}</h3>
+                                        <h3 class="panel-title">Автор комментария: {{ $post->getUsername($comment->user_id)}}</h3>
                                     </div>
                                     <div class="panel-body">
                                         {{ $comment->text }}
