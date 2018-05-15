@@ -78,7 +78,6 @@ class Post extends Model {
 
     public function getComments(Post $post) {
         return Comment::where('post_id', $post->id)->orderBy('created_at', 'DESC')->get();
-        ;
     }
 
     public function scopeFilter($query, $filters) {

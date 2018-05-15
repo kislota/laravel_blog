@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@include('layouts.sidebar')
+
 @section('content')
             <div class="panel panel-default">
                 <div class="panel-heading">Фильтр слов</div>

@@ -43,7 +43,6 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             Посты<span class="caret"></span>
                         </a>
-<<<<<<< HEAD
                         <ul class="dropdown-menu">
                             <li><a href="/posts">Все записи</a></li>
                             @if (auth()->check())
@@ -83,58 +82,7 @@
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-=======
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                        <!-- Left Side Of Navbar -->
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Посты<span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/posts">Все записи</a></li>
-                                    @if (auth()->check())
-                                    <li><a href="/posts?name={{auth()->user()->name}}">Мои записи</a></li>
-                                    <li><a href="/posts/create">Создать запись</a></li>
-                                    @endif
-                                </ul>
-                            </li>
-                            @if (auth()->check())
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    Настройки<span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    
-                                    <li><a href="/filters">Фильтр слов</a></li>
-                                    <li><a href="/admin">Админка</a></li>
-                                    
-                                </ul>
-                            </li>
-                            @endif
-                        </ul>
-
-                        <!-- Right Side Of Navbar -->
-                        <ul class="nav navbar-nav navbar-right">
-                            <!-- Authentication Links -->
-                            @guest
-                            <li><a href="{{ route('login') }}">Вход</a></li>
-                            <li><a href="{{ route('register') }}">Регистрация</a></li>
-                            @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
->>>>>>> 10cbb11750688e8928926d6a00b9aa4b33bb755e
-                                                   document.getElementById('logout-form').submit();">
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
 
@@ -171,20 +119,6 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.7/summernote.js"></script>
 
 <script>
-
-<<<<<<< HEAD
-    $(document).ready(function () {
-
-        $('#text').summernote();
-
-    });
-=======
-                                               $(document).ready(function () {
-
-                                                   $('#text').summernote();
-
-                                               });
->>>>>>> 10cbb11750688e8928926d6a00b9aa4b33bb755e
-
+    $(document).ready(function () { $('#text').summernote();});
 </script>
 </html>
