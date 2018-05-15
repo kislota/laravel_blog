@@ -49,7 +49,7 @@ class PostsController extends Controller {
     //По ID поста выбираем нужный пост
     public function show(Comment $comments, Post $post) {
         $post->comments = $post->getComments($post);
-//        dd($post->comments);
+
         //Отображаем пост и передаём ему все что нашли в базе по этому посту
         return view('posts.show', compact('post'));
     }
