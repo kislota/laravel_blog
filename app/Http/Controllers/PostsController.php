@@ -18,7 +18,11 @@ class PostsController extends Controller {
     }
 
     public function index(PostFilters $filters) {
+<<<<<<< HEAD
         $posts = Post::filter($filters)->latest()->get();
+=======
+        $posts = Post::filter($filters)->get();
+>>>>>>> 10cbb11750688e8928926d6a00b9aa4b33bb755e
         return view('posts.index', compact('posts'));
     }
 
@@ -49,7 +53,11 @@ class PostsController extends Controller {
     //По ID поста выбираем нужный пост
     public function show(Comment $comments, Post $post) {
         $post->comments = $post->getComments($post);
+<<<<<<< HEAD
 
+=======
+//        dd($post->comments);
+>>>>>>> 10cbb11750688e8928926d6a00b9aa4b33bb755e
         //Отображаем пост и передаём ему все что нашли в базе по этому посту
         return view('posts.show', compact('post'));
     }

@@ -3,6 +3,7 @@
 @include('layouts.sidebar')
 
 @section('content')
+<<<<<<< HEAD
     <div class="panel panel-default">
         <div class="panel-heading">Блог</div>
         <div class="panel-body">
@@ -15,6 +16,23 @@
                     <div class="center-block">Добавил: {{ $post->getUsername($post->author)}}</div>
                     <div class="center-block">Всего лайков: {{ $post->getCountPostLikes($post->id)}}</div>
                     @if($post->getLikes($post->id))
+=======
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Блог</div>
+                <div class="panel-body">
+                    @foreach ($posts as $post)
+                    <article>
+                        <h4>{{ $post->head}}</h4>
+                        <div class="body">{!! $post->text !!}</div>
+                        <div class="center-block">Добавленно: {{ $post->created_at->diffForHumans()}}</div>
+                        <div class="center-block">Измененно: {{ $post->updated_at->diffForHumans()}}</div>
+                        <div class="center-block">Добавил: {{ $post->getUsername($post->author)}}</div>
+                        <div class="center-block">Всего лайков: {{ $post->getCountPostLikes($post->id)}}</div>
+                        @if($post->getLikes($post->id))
+>>>>>>> 10cbb11750688e8928926d6a00b9aa4b33bb755e
                         <form method="post" action="/likes/{{ $post->getLikes($post->id)}}">
                             {{ method_field('DELETE') }}
                             @else
