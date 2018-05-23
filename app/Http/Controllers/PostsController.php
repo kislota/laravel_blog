@@ -7,6 +7,7 @@ use App\Post;
 use App\Like;
 use App\Comment;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 use App\Filters\PostFilters;
 
 class PostsController extends Controller {
@@ -19,7 +20,8 @@ class PostsController extends Controller {
 
     public function index(PostFilters $filters) {
 //        $posts = Post::filter($filters)->latest()->get();
-        $posts = Post::filter($filters)->get();
+        $posts = Post::filter($filters)->pagination(5);
+
         return view('posts.index', compact('posts'));
     }
 

@@ -39,5 +39,6 @@
                 <hr>
             @endforeach
         </div>
+        {{$posts->links()}}
     </div>
 @endsection
