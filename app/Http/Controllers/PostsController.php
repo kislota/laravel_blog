@@ -20,7 +20,7 @@ class PostsController extends Controller {
 
     public function index(PostFilters $filters) {
 //        $posts = Post::filter($filters)->latest()->get();
-        $posts = Post::filter($filters)->paginate(5);
+        $posts = Post::filter($filters)->orderBy('created_at','DESC')->paginate(5);
 
         return view('posts.index', compact('posts'));
     }
