@@ -8,6 +8,7 @@ use App\Like;
 use App\Comment;
 use Illuminate\Support\Facades\Storage;
 use App\Filters\PostFilters;
+use Faker\Generator as Faker;
 
 class PostsController extends Controller {
 
@@ -34,14 +35,23 @@ class PostsController extends Controller {
         $this->validate($request, [
             'head' => 'required',
             'text' => 'required',
-            'img' => 'required|image',
         ]);
+        if($request->img){
+            $this->validate($request, [
+                'img' => 'required|image',
+            ]);
+            $image = $post->saveImg($request->file('img'));
+        }else{
+            $faker = \Faker\Factory::create();
+            $image = $faker->imageUrl();
+
+        }
         //Сохраняем в базу данные которые нам пришли
         Post::create([
             'head' => $post->getText($request->head), //Заголовок
             'text' => $post->getText($request->text), //Текст поста
             'user_id' => auth()->id(), //ID Автора
-            'img' => $post->saveImg($request->file('img')), //Название картинки
+            'img' => $image, //Название картинки
             'user_id_like' => '',
         ]);
         //Редирект на главную

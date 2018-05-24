@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                     <label for="img">Картинка</label>
-                    <input type="file" id="img" name="img" value="{{old('img')}}" required>
+                    <input type="file" id="img" name="img" value="{{old('img')}}">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default">Отправить</button>
