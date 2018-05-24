@@ -19,7 +19,7 @@ class PostsController extends Controller {
 
     public function index(PostFilters $filters) {
 //        $posts = Post::filter($filters)->latest()->get();
-        $posts = Post::filter($filters)->get();
+        $posts = Post::filter($filters)->paginate(5);
 
         return view('posts.index', compact('posts'));
     }
@@ -40,7 +40,7 @@ class PostsController extends Controller {
         Post::create([
             'head' => $post->getText($request->head), //Заголовок
             'text' => $post->getText($request->text), //Текст поста
-            'author' => auth()->id(), //ID Автора
+            'user_id' => auth()->id(), //ID Автора
             'img' => $post->saveImg($request->file('img')), //Название картинки
             'user_id_like' => '',
         ]);
@@ -71,7 +71,7 @@ class PostsController extends Controller {
         $post->update([
             'head' => $post->getText($request->head), //Заголовок
             'text' => $post->getText($request->text), //Текст
-            'author' => $request->author, //Автор
+            'user_id' => $request->user_id, //Автор
             'img' => $post->saveImg($request->file('img_new'), $request->img), //Картинка новая или старая
         ]);
         //Редирект на главную

@@ -10,19 +10,23 @@
                     <div class="panel-heading">{{ $post->head}}</div>
                     <div class="panel-body">
                         <article>
+                            @if(Storage::exists('images/'.$post->img))
                             <img style="height: 150px;" src="{{$url = Storage::url('images/'.$post->img)}}" alt="{{$post->img}}">
+                            @else
+                            <img style="height: 150px;" src="{{$post->img}}" alt="{{$post->img}}">
+                            @endif
                             <div class="body">{!! $post->text !!}</div>
                             <div class="center-block">Добавленно: {{ $post->created_at->diffForHumans()}}</div>
                             <div class="center-block">Измененно: {{ $post->updated_at->diffForHumans()}}</div>
-                            <div class="center-block">Добавил: {{ $post->getUsername($post->author)}}</div>
+                            <div class="center-block">Добавил: {{ $post->getUsername($post->user_id)}}</div>
                             <form method="post" action="/posts/{{ $post->id}}">
                                 {{ csrf_field()}}
                                 {{ method_field('DELETE') }}
                                 @if (auth()->check())
-                                    @if($post->author == auth()->id() || $post->user_id_like == auth()->id())
+                                    @if($post->user_id == auth()->id() || $post->user_id_like == auth()->id())
                                         <a href="/posts/{{ $post->id}}/edit" class="btn btn-success" role="button">Изменить</a>
                                     @endif
-                                    @if($post->author == auth()->id())
+                                    @if($post->user_id == auth()->id())
                                         <button type="submit" class="btn btn-danger">Удалить</button>
                                     @endif
                                 @endif

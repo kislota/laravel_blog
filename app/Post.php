@@ -10,11 +10,16 @@ use Illuminate\Support\Facades\Storage;
 
 class Post extends Model {
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function redirect() {
         return redirect('/posts');
     }
 
-//Сохранение и изменение картинки
+    //Сохранение и изменение картинки
     public function saveImg($file, $fileOld = '') {
         if ($file) {
             //Если пришла то сохраняем её на диск /storage/app/public/images

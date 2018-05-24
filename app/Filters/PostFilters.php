@@ -13,7 +13,7 @@ class PostFilters extends Filters{
     protected function name($username) {
         $user = User::where('name', $username)->firstOrFail();
 
-        return $this->builder->where('author', $user->id);
+        return $this->builder->where('user_id', $user->id);
     }
 
 }

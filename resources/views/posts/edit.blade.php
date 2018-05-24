@@ -9,7 +9,7 @@
             <form method="post" action="/posts/{{$post->id}}" enctype="multipart/form-data">
                 {{ csrf_field()}}
                 {{ method_field('PUT') }}
-                <input type="hidden" class="form-control" id="author" name="author" value="{{$post->author}}">
+                <input type="hidden" class="form-control" id="author" name="author" value="{{$post->user_id}}">
                 <div class="form-group">
                     <label for="head">Заголовок</label>
                     <input type="text" class="form-control" id="head" name="head" value="{{$post->head}}" required>

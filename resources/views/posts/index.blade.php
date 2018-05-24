@@ -12,7 +12,7 @@
                     <div class="body">{!! $post->text !!}</div>
                     <div class="center-block">Добавленно: {{ $post->created_at->diffForHumans()}}</div>
                     <div class="center-block">Измененно: {{ $post->updated_at->diffForHumans()}}</div>
-                    <div class="center-block">Добавил: {{ $post->getUsername($post->author)}}</div>
+                    <div class="center-block">Добавил: {{ $post->getUsername($post->user_id)}}</div>
                     <div class="center-block">Всего лайков: {{ $post->getCountPostLikes($post->id)}}</div>
                     @if($post->getLikes($post->id))
                         <form method="post" action="/likes/{{ $post->getLikes($post->id)}}">
@@ -39,5 +39,6 @@
                 <hr>
             @endforeach
         </div>
+        {{$posts->links()}}
     </div>
 @endsection
